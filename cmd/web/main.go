@@ -1,12 +1,25 @@
 package main
 
 import (
+	"flag"
 	"log"
 	"net/http"
+	"os"
 	"path/filepath"
 )
 
 func main() {
+	// addr is a flag with the name "addr", default value of ":4000"
+	// which value will be stored in the addr variable at runtime.
+	addr := flag.String("addr", ":4000", "HTTP network address")
+	flag.Parse()
+
+	// infoLog is a logger for writing information messages.
+	infoLog := log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
+
+	// errorLog is a logger for writing error massages.
+	errorLog := log.New(os.Stdout, "ERROR\t", log.Ldate|log.Ldate|log.Lshortfile)
+
 	mux := http.NewServeMux()
 
 	fileServer := http.FileServer(neuteredFileSystem{http.Dir("./ui/static/")})
@@ -15,11 +28,16 @@ func main() {
 
 	mux.HandleFunc("/", home)
 	mux.HandleFunc("/snippet/view", snippetView)
-	mux.HandleFunc("/snippet/create", snippetCreate)
 
-	log.Println("Starting server on: 4000")
-	err := http.ListenAndServe(":4000", mux)
-	log.Fatal(err)
+	srv := &http.Server{
+		Addr:     *addr,
+		ErrorLog: errorLog,
+		Handler:  mux,
+	}
+
+	infoLog.Printf("Starting server on: %s", *addr)
+	err := srv.ListenAndServe()
+	errorLog.Fatal(err)
 }
 
 type neuteredFileSystem struct {

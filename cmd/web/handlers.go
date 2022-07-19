@@ -50,11 +50,20 @@ func (app *application) snippetView(w http.ResponseWriter, r *http.Request) {
 // snippetCreate handler function which creates a new snippet.
 func (app *application) snippetCreate(w http.ResponseWriter, r *http.Request) {
 	// Check wether the request method is POST.
-	if r.Method != "POST" {
+	if r.Method != http.MethodPost {
 		// If it's not send a 405 status code in response.
 		w.Header().Set("Allow", http.MethodPost)
 		app.clientError(w, http.StatusMethodNotAllowed)
 		return
 	}
-	w.Write([]byte("Create a new snippet..."))
+	// dummy data for now
+	title := "0 snail"
+	content := "0 snail\nClimb Mount Fuji,\nBut slowly, slowly!\n\nKobayashi Issa"
+
+	id, err := app.snippets.Insert(title, content)
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+	http.Redirect(w, r, fmt.Sprintf("/snippet/view?id=%d", id), http.StatusSeeOther)
 }

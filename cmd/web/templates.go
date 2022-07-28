@@ -3,6 +3,7 @@ package main
 import (
 	"html/template"
 	"path/filepath"
+	"time"
 
 	"github.com/Twofold-One/tsnippet/internal/models"
 )
@@ -11,6 +12,16 @@ type templateData struct {
 	CurrentYear int
 	Snippet     *models.Snippet
 	Snippets    []*models.Snippet
+}
+
+// humanDate returns nicely formatted string representation of time.Time object.
+func humanDate(t time.Time) string {
+	return t.Format("02 Jan 2006 at 15:04")
+}
+
+// Initialize a template.FuncMap object and store it in a global variable.
+var functions = template.FuncMap{
+	"humanDate": humanDate,
 }
 
 // newTemplateCache creates cache for templates.
@@ -28,8 +39,8 @@ func newTemplateCache() (map[string]*template.Template, error) {
 	for _, page := range pages {
 		name := filepath.Base(page)
 
-		// Parse the base template file into a template set.
-		ts, err := template.ParseFiles("./ui/html/base.tmpl.html")
+		// Register the template.FuncMap and parse the base template file into a template set.
+		ts, err := template.New(name).Funcs(functions).ParseFiles("./ui/html/base.tmpl.html")
 		if err != nil {
 			return nil, err
 		}

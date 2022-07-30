@@ -2,9 +2,10 @@
 
 ## Simple text snippet web-app
 
-| Method | Pattern            | Handler         | Action                       |
-| :----- | :----------------- | :-------------- | :--------------------------- |
-| ANY    | /                  | home            | Display the home page        |
-| ANY    | /snippet/view?id=1 | snippetView     | Display a specific snippet   |
-| POST   | /snippet/create    | snippetCreate   | Create a new snippet         |
-| ANY    | /static/           | http.FileServer | Serve a specific static file |
+| Method | Pattern           | Handler           | Action                                         |
+| :----- | :---------------- | :---------------- | :--------------------------------------------- |
+| GET    | /                 | home              | Display the home page                          |
+| GET    | /snippet/view/:id | snippetView       | Display a specific snippet                     |
+| GET    | /snippet/create   | snippetCreate     | Display a HTML form for creating a new snippet |
+| POST   | /snippet/create   | snippetCreatePost | Create a new snippet                           |
+| GET    | /static/          | http.FileServer   | Serve a specific static file                   |

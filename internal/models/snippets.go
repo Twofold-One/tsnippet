@@ -37,7 +37,7 @@ func (m *SnippetModel) Insert(title string, content string, expires int) (int, e
 		return 0, err
 	}
 	if id == 0 {
-		return 0, errors.New("Something went wrong, iserted id is equal to zero")
+		return 0, errors.New("something went wrong, iserted id is equal to zero")
 	}
 	return id, nil
 }

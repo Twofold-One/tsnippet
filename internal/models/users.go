@@ -2,7 +2,13 @@ package models
 
 import (
 	"database/sql"
+	"errors"
+	"log"
 	"time"
+
+	"github.com/jackc/pgconn"
+	"github.com/jackc/pgerrcode"
+	"golang.org/x/crypto/bcrypt"
 )
 
 // User is a new User type.
@@ -21,6 +27,26 @@ type UserModel struct {
 
 // Insert method adds a new record to the "users" table.
 func (m *UserModel) Insert(name, email, password string) error {
+	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), 12)
+	if err != nil {
+		return err
+	}
+
+	stmt := `INSERT INTO users (name, email, hashed_password, created)
+	VALUES ($1, $2, $3, timezone('utc', now()))`
+
+	_, err = m.DB.Exec(stmt, name, email, string(hashedPassword))
+	if err != nil {
+		var pgErr *pgconn.PgError
+		if errors.As(err, &pgErr) {
+			if pgErr.Code == pgerrcode.UniqueViolation && pgErr.ConstraintName == "users_uc_email" {
+				return ErrDuplicateEmail
+			}
+		}
+		log.Println("DEBUG", err, pgErr.Code, pgErr.Message, pgErr.ConstraintName)
+		return err
+	}
+
 	return nil
 }
 

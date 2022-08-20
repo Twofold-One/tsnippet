@@ -11,6 +11,7 @@ require (
 	github.com/jackc/pgx/v4 v4.16.1
 	github.com/julienschmidt/httprouter v1.3.0
 	github.com/justinas/alice v1.2.0
+	github.com/justinas/nosurf v1.1.1
 	golang.org/x/crypto v0.0.0-20220722155217-630584e8d5aa
 )
 
@@ -21,6 +22,5 @@ require (
 	github.com/jackc/pgproto3/v2 v2.3.0 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20200714003250-2b9c44734f2b // indirect
 	github.com/jackc/pgtype v1.11.0 // indirect
-	github.com/justinas/nosurf v1.1.1 // indirect
 	golang.org/x/text v0.3.7 // indirect
 )

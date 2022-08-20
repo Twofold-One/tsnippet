@@ -6,6 +6,12 @@ import (
 	"time"
 )
 
+type SnippetModelInterface interface {
+	Insert(title, content string, expires int) (int, error)
+	Get(id int) (*Snippet, error)
+	Latest() ([]*Snippet, error)
+}
+
 // Snippet type holds the data for an individual snippet.
 type Snippet struct {
 	ID      int
@@ -20,9 +26,6 @@ type SnippetModel struct {
 	DB *sql.DB
 }
 
-// TODO: Add custom expiration duration; right now default is 365 days
-// There is some problem during execution of the statement, when 3d placeholder
-// couldn't be seen.
 // Insert return a new snippet into the database.
 func (m *SnippetModel) Insert(title string, content string, expires int) (int, error) {
 

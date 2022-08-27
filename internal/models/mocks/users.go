@@ -1,6 +1,10 @@
 package mocks
 
-import "github.com/Twofold-One/tsnippet/internal/models"
+import (
+	"time"
+
+	"github.com/Twofold-One/tsnippet/internal/models"
+)
 
 type UserModel struct{}
 
@@ -29,4 +33,19 @@ func (m *UserModel) Exists(id int) (bool, error) {
 		return false, nil
 
 	}
+}
+
+func (m *UserModel) Get(id int) (*models.User, error) {
+	if id == 1 {
+		user := &models.User{
+			ID:      1,
+			Name:    "Alice",
+			Email:   "alice@example.com",
+			Created: time.Now(),
+		}
+
+		return user, nil
+	}
+
+	return nil, models.ErrNoRecord
 }

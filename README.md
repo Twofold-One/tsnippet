@@ -1,6 +1,6 @@
 # tsnippet
 
-## Simple text snippet web-app written on Go.
+## Simple text snippet fullstack web-app written on Go
 
 App created with help of and following along with [ALEX EDWARDS](https://www.alexedwards.net/) ([Github](https://github.com/alexedwards)) book [“Let's Go!” (2nd edition)](https://lets-go.alexedwards.net/)—one of the greatest practical Go books I've read at the moment, which excellent implementation of the approach:
 
@@ -28,3 +28,9 @@ Description of available functionality:
 | GET    | /account/view            | accountView               | Display current user account information       |
 | GET    | /account/password/update | accountPasswordUpdate     | Display a HTML form for updating the password  |
 | POST   | /account/password/update | accountPasswordUpdatePost | Update password                                |
+
+Installation & Usage
+
+`$ git clone https://github.com/Twofold-One/tsnippet.git`
+
+`$ go run go run ./cmd/web/ -dsn postgres://username:pass@localhost:5432/tsnippet`

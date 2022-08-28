@@ -1,6 +1,7 @@
 # tsnippet
 
 ## Simple text snippet fullstack web-app written on Go
+![tsnippet](https://user-images.githubusercontent.com/87330747/187065612-27663f19-1bd2-4c3a-95fd-358397b73966.gif)
 
 App created with help of and following along with [ALEX EDWARDS](https://www.alexedwards.net/) ([Github](https://github.com/alexedwards)) book [“Let's Go!” (2nd edition)](https://lets-go.alexedwards.net/)—one of the greatest practical Go books I've read at the moment, which excellent implementation of the approach:
 

@@ -34,4 +34,4 @@ Description of available functionality:
 
 `$ git clone https://github.com/Twofold-One/tsnippet.git`
 
-`$ go run go run ./cmd/web/ -dsn postgres://username:pass@localhost:5432/tsnippet`
+`$ go run ./cmd/web/ -dsn postgres://username:pass@localhost:5432/tsnippet`

@@ -29,7 +29,7 @@ Description of available functionality:
 | GET    | /account/password/update | accountPasswordUpdate     | Display a HTML form for updating the password  |
 | POST   | /account/password/update | accountPasswordUpdatePost | Update password                                |
 
-Installation & Usage
+## Installation & Usage
 
 `$ git clone https://github.com/Twofold-One/tsnippet.git`
 
